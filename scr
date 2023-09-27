@@ -1,0 +1,19 @@
+import json
+import base64
+import sys
+
+def extract_data(json_string):
+    data = json.loads(json_string)
+    debtor_account_identification = data['payment']['debtorAccount']['identification']
+    creditor_account_identification = data['payment']['creditorAccount']['identification']
+    amount = data['payment']['amount']
+    reference = data['payment']['reference']
+
+    concatenated_string = debtor_account_identification + creditor_account_identification + amount + reference
+    encoded_string = base64.b64encode(concatenated_string.encode()).decode()
+
+    print(encoded_string)
+
+# Example usage
+json_string = sys.argv[1]
+extract_data(json_string)
